@@ -4,7 +4,14 @@ import json
 import yaml
 import bcrypt
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
+
+# (선택) 로컬 환경에서 .env를 로드할 수도 있음
+# Streamlit Cloud에서는 보통 secrets 사용
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except:
+    pass
 
 ################################
 # 1. set_page_config
@@ -12,18 +19,31 @@ from dotenv import load_dotenv
 st.set_page_config(page_title="my-minimal-git-journal", layout="wide")
 
 ################################
-# 2. .env 파일 로드
+# 2. 환경 변수 or st.secrets 로드
 ################################
-load_dotenv()
+def get_env_value(key: str, default: str = "") -> str:
+    """
+    로컬 .env 파일에 값이 있으면 우선 사용,
+    없으면 st.secrets에서 가져옴,
+    마지막으로 없으면 default.
+    """
+    # 1) .env 파일에서 가져오기
+    env_val = os.getenv(key, "")
+    if env_val:
+        return env_val
 
-ADMIN_ID = os.getenv("ADMIN_ID", "admin")
-ADMIN_PW_HASH = os.getenv("ADMIN_PW", "")
-WORK_ID = os.getenv("WORK_ID", "work")
-WORK_PW_HASH = os.getenv("WORK_PW", "")
+    # 2) secrets에서 가져오기
+    if key in st.secrets:
+        return st.secrets[key]
 
-# 기존에 REPO_URL을 사용했으나, mkdocs.yml에서 충돌을 일으킬 수 있으므로
-# 필요하면 코드를 참고만 하고, mkdocs.yml에는 repo_url을 설정하지 않도록 함.
-# REPO_URL = "https://github.com/haapy-mind-life/my-git-journal.git"
+    # 3) 둘 다 없으면 default
+    return default
+
+ADMIN_ID = get_env_value("ADMIN_ID", "admin")   # 디폴트 admin
+WORK_ID = get_env_value("WORK_ID", "work")     # 디폴트 work
+
+ADMIN_PW_HASH = get_env_value("ADMIN_PW")  # bcrypt 해시 (예: $2b$12$...)
+WORK_PW_HASH = get_env_value("WORK_PW")
 
 DOCS_DIR = "docs"
 METADATA_FILE = "metadata.json"
@@ -65,13 +85,15 @@ def logout():
 def check_password(input_pw: str, stored_hash: str) -> bool:
     if not stored_hash:
         return False
+    # bcrypt 해시 여부 판별
     if stored_hash.startswith("$2b$"):
         return bcrypt.checkpw(input_pw.encode("utf-8"), stored_hash.encode("utf-8"))
     else:
+        # 평문
         return (input_pw == stored_hash)
 
 ################################
-# 6. 계정별 UI
+# 6. 계정별 UI (배경색 등)
 ################################
 def apply_color_theme(user_type: str):
     if user_type == "admin":
@@ -266,12 +288,12 @@ def load_mkdocs_config():
     - theme: material
     - plugins: [search]
     - markdown_extensions: [admonition, codehilite, toc, footnotes, meta]
-    (repo_url 제거!)
+    (repo_url는 제거)
     """
+    MKDOCS_FILE = "mkdocs.yml"
     if not os.path.exists(MKDOCS_FILE):
         base_config = {
             "site_name": "My Minimal Git Journal",
-            # "repo_url": REPO_URL,  # 제거 또는 주석 처리
             "theme": {"name": "material"},
             "nav": [{"Home": "index.md"}],
             "plugins": ["search"],
@@ -291,6 +313,7 @@ def load_mkdocs_config():
             return yaml.safe_load(f)
 
 def save_mkdocs_config(cfg):
+    MKDOCS_FILE = "mkdocs.yml"
     with open(MKDOCS_FILE, "w", encoding="utf-8") as f:
         yaml.dump(cfg, f, allow_unicode=True)
 
@@ -299,6 +322,7 @@ def create_filtered_nav(user_type, meta):
     for fname, doc_meta in meta.items():
         lvl = doc_meta.get("access_level", "personal")
         if user_type == "admin":
+            # admin -> 모든 문서
             nav_docs.append((doc_meta["대분류"], doc_meta["중분류"], doc_meta["소분류"], fname))
         elif user_type == "work":
             if lvl in ["personal", "work"]:
@@ -335,10 +359,6 @@ def update_nav_in_mkdocs(nav_docs):
 # 10. 빌드 및 배포
 ################################
 def build_and_deploy():
-    """
-    mkdocs gh-deploy 시, .git/config의 [remote "origin"]이 제대로 설정되어 있어야 합니다.
-    'repo_url'을 mkdocs.yml에서 제거했으므로, mkdocs는 로컬 Git 설정(origin)을 그대로 사용합니다.
-    """
     b_res = os.system("mkdocs build")
     if b_res != 0:
         return "mkdocs build 실패!"
@@ -350,7 +370,7 @@ def build_and_deploy():
 ################################
 # 11. Streamlit App 메인
 ################################
-st.title("Minimal Git Journal - repo_url Removed")
+st.title("Minimal Git Journal - Secrets-based Login")
 
 check_session_expiration()
 
@@ -358,6 +378,7 @@ if not st.session_state["logged_in"]:
     st.subheader("로그인")
     input_id = st.text_input("아이디")
     input_pw = st.text_input("비밀번호", type="password")
+
     if st.button("로그인"):
         if input_id == ADMIN_ID and check_password(input_pw, ADMIN_PW_HASH):
             st.session_state["logged_in"] = True
@@ -372,6 +393,7 @@ if not st.session_state["logged_in"]:
         else:
             st.error("아이디 또는 비밀번호가 잘못되었습니다.")
     st.stop()
+
 else:
     user_type = st.session_state["user_type"]
     apply_color_theme(user_type)
@@ -385,6 +407,7 @@ else:
         menu_list.remove("문서 삭제/수정")
 
     menu = st.sidebar.selectbox("메뉴", menu_list)
+
     meta = load_metadata()
 
     if menu == "문서 보기":
@@ -455,7 +478,7 @@ access_level: "personal"/"work"/"admin"
                     st.rerun()
 
                 new_title = st.text_input("새 제목", value=doc_meta.get("title", ""))
-                new_body = st.text_area("새 본문 내용 (프론트매터 제외)", height=200)
+                new_body = st.text_area("새 본문 내용 (Front Matter 제외)", height=200)
 
                 if st.button("문서 수정"):
                     edit_document_title_body(sel_file, new_title, new_body)
@@ -471,5 +494,4 @@ access_level: "personal"/"work"/"admin"
                 st.error(msg)
             else:
                 st.success(msg)
-                st.write("→ gh-pages 브랜치로 배포되었습니다.")  # 로컬 Git origin 설정 필요
-
+                st.write("→ gh-pages 브랜치로 배포되었습니다.")
