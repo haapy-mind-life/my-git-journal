@@ -1,0 +1,7 @@
+streamlit
+python-dotenv
+bcrypt
+PyYAML
+mkdocs
+mkdocs-material
+mkdocs-material-extensions

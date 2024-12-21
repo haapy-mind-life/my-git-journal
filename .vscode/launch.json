@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Streamlit: Run app",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/venv/Scripts/streamlit.exe",
+        "args": [
+          "run",
+          "${workspaceFolder}/app.py"
+        ],
+        "console": "integratedTerminal",
+      }
+    ]
+  }
+  

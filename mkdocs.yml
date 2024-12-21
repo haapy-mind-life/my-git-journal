@@ -1,0 +1,20 @@
+markdown_extensions:
+- admonition
+- codehilite
+- toc:
+    permalink: true
+- footnotes
+- meta
+nav:
+- Home: index.md
+- 개인용:
+  - 학습:
+    - Git: 2024-12-21-#1.md
+  - 성장:
+    - 학습 및 커뮤니케이션: 2024-12-21-#2.md
+plugins:
+- search
+repo_url: https://github.com/haapy-mind-life/my-git-journal.git
+site_name: My Minimal Git Journal
+theme:
+  name: material
