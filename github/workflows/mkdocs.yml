@@ -1,0 +1,32 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]   # main 브랜치에 push될 때 동작
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # (1) 소스코드 가져오기
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      # (2) Python 설치 (3.9 버전 예시)
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      # (3) 의존성 설치
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          # requirements.txt에 mkdocs, mkdocs-material, streamlit 등 이미 작성됨
+
+      # (4) mkdocs build & gh-deploy
+      - name: Build and deploy to GitHub Pages
+        run: |
+          mkdocs build
+          mkdocs gh-deploy --force
