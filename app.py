@@ -279,17 +279,19 @@ def edit_document_title_body(fname, new_title, new_body):
         save_metadata(meta)
 
 ################################
+# (추가) 문서 본문 전체 보기
+################################
+def get_document_content(fname):
+    path = os.path.join(DOCS_DIR, fname)
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    return None
+
+################################
 # 9. mkdocs.yml nav 업데이트
 ################################
 def load_mkdocs_config():
-    """
-    필요한 최소 구성:
-    - site_name
-    - theme: material
-    - plugins: [search]
-    - markdown_extensions: [admonition, codehilite, toc, footnotes, meta]
-    (repo_url는 제거)
-    """
     MKDOCS_FILE = "mkdocs.yml"
     if not os.path.exists(MKDOCS_FILE):
         base_config = {
@@ -322,7 +324,6 @@ def create_filtered_nav(user_type, meta):
     for fname, doc_meta in meta.items():
         lvl = doc_meta.get("access_level", "personal")
         if user_type == "admin":
-            # admin -> 모든 문서
             nav_docs.append((doc_meta["대분류"], doc_meta["중분류"], doc_meta["소분류"], fname))
         elif user_type == "work":
             if lvl in ["personal", "work"]:
@@ -402,12 +403,18 @@ else:
     if st.sidebar.button("로그아웃"):
         logout()
 
-    menu_list = ["문서 보기", "문서 작성(MD 포맷)", "문서 삭제/수정", "빌드 및 배포"]
+    # 메뉴명 변경: "정적 사이트 빌드 및 배포(로컬 PC에서만 가능)" 로 수정
+    menu_list = [
+        "문서 보기",
+        "문서 작성(MD 포맷)",
+        "문서 삭제/수정",
+        "정적 사이트 빌드 및 배포(로컬 PC에서만 가능)"
+    ]
+
     if user_type != "admin":
         menu_list.remove("문서 삭제/수정")
 
     menu = st.sidebar.selectbox("메뉴", menu_list)
-
     meta = load_metadata()
 
     if menu == "문서 보기":
@@ -415,7 +422,11 @@ else:
         if user_type == "admin":
             visible_docs = meta
         else:
-            visible_docs = {k: v for k, v in meta.items() if v["access_level"] in ["personal", "work"]}
+            # work 사용자는 personal, work 문서만
+            visible_docs = {
+                k: v for k, v in meta.items()
+                if v["access_level"] in ["personal", "work"]
+            }
         if visible_docs:
             for fname, doc_meta in visible_docs.items():
                 st.subheader(f"{doc_meta.get('title')} ({fname})")
@@ -470,6 +481,14 @@ access_level: "personal"/"work"/"admin"
                 st.write(f"소분류: {doc_meta.get('소분류')}")
                 st.write(f"태그: {doc_meta.get('tags')}")
 
+                # (추가) 문서 본문 전체 보기
+                if st.button("문서 본문 보기"):
+                    content = get_document_content(sel_file)
+                    if content is not None:
+                        st.code(content, language="markdown")
+                    else:
+                        st.warning("문서 파일을 찾지 못했습니다.")
+
                 if st.button("문서 삭제"):
                     delete_document(sel_file)
                     st.success("문서가 삭제되었습니다. nav 재생성 후 반영 필요.")
@@ -486,8 +505,8 @@ access_level: "personal"/"work"/"admin"
                     nav_docs = create_filtered_nav(user_type, load_metadata())
                     update_nav_in_mkdocs(nav_docs)
 
-    elif menu == "빌드 및 배포":
-        st.header("정적 사이트 빌드 및 배포")
+    elif menu == "정적 사이트 빌드 및 배포(로컬 PC에서만 가능)":
+        st.header("정적 사이트 빌드 및 배포(로컬 PC에서만 가능)")
         if st.button("mkdocs gh-deploy"):
             msg = build_and_deploy()
             if "실패" in msg:
