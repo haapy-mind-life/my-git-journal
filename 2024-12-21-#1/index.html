@@ -1,0 +1,1298 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../2024-12-21-%232/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.1">
+    
+    
+      
+        <title>Git 초보자를 위한 가이드 - My Minimal Git Journal</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="My Minimal Git Journal" class="md-header__button md-logo" aria-label="My Minimal Git Journal" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Minimal Git Journal
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git 초보자를 위한 가이드
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/haapy-mind-life/my-git-journal.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="My Minimal Git Journal" class="md-nav__button md-logo" aria-label="My Minimal Git Journal" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Minimal Git Journal
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/haapy-mind-life/my-git-journal.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    개인용
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            개인용
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    학습
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            학습
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Git의 기본 개념 이해하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Git의 기본 개념 이해하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Git이란 무엇인가요?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Git과 GitHub의 차이
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Git 설치 및 환경 설정
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Git 설치 및 환경 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Git 설치
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Git 초기 설정
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Git의 기본 작업 흐름 이해하기
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Git 명령어 배우기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Git 명령어 배우기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 새로운 Git 저장소 생성
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 파일 상태 확인
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 파일 추적 및 스테이징
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 변경 사항 저장(커밋)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 변경 사항 푸시(업로드)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 실수 복구하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 실수 복구하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 마지막 커밋 수정
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 스테이징 취소
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 변경 사항 되돌리기
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 협업하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 협업하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 원격 저장소 복제
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 브랜치 사용하기
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. GitHub와 연동하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. GitHub와 연동하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 GitHub에 저장소 생성
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 GitHub에 코드 푸시
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. 기본 Git 워크플로 연습하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 기본 Git 워크플로 연습하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      연습 1: 파일 추가 후 커밋
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      연습 2: 원격 저장소와 연동
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 추가 학습 리소스
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    성장
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            성장
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2024-12-21-%232/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    학습 및 커뮤니케이션
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Git의 기본 개념 이해하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Git의 기본 개념 이해하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Git이란 무엇인가요?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Git과 GitHub의 차이
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Git 설치 및 환경 설정
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Git 설치 및 환경 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Git 설치
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Git 초기 설정
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Git의 기본 작업 흐름 이해하기
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Git 명령어 배우기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Git 명령어 배우기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 새로운 Git 저장소 생성
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 파일 상태 확인
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 파일 추적 및 스테이징
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 변경 사항 저장(커밋)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 변경 사항 푸시(업로드)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 실수 복구하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 실수 복구하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 마지막 커밋 수정
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 스테이징 취소
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 변경 사항 되돌리기
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 협업하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 협업하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 원격 저장소 복제
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 브랜치 사용하기
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. GitHub와 연동하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. GitHub와 연동하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 GitHub에 저장소 생성
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 GitHub에 코드 푸시
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. 기본 Git 워크플로 연습하기
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 기본 Git 워크플로 연습하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      연습 1: 파일 추가 후 커밋
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      연습 2: 원격 저장소와 연동
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 추가 학습 리소스
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="git">Git 초보자를 위한 가이드<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<p>Git은 소프트웨어 개발에서 협업과 버전 관리를 위한 도구입니다. 이를 사용하면 코드 변경 사항을 기록하고, 이전 버전으로 복구하며, 팀원들과 작업을 원활히 진행할 수 있습니다. 아래에서는 Git을 처음 시작하는 초보자도 이해할 수 있도록 차근차근 설명하겠습니다.</p>
+<hr />
+<h2 id="1-git">1. Git의 기본 개념 이해하기<a class="headerlink" href="#1-git" title="Permanent link">&para;</a></h2>
+<h3 id="11-git">1.1 Git이란 무엇인가요?<a class="headerlink" href="#11-git" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Git은 <strong>분산 버전 관리 시스템(DVCS)</strong>입니다.</li>
+<li>파일의 변경 기록을 추적하고, 팀원들과 파일을 공유할 수 있게 합니다.</li>
+<li>Git을 사용하면 특정 시점의 상태로 복구하거나, 실수를 되돌릴 수 있습니다.</li>
+</ul>
+<h3 id="12-git-github">1.2 Git과 GitHub의 차이<a class="headerlink" href="#12-git-github" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Git</strong>: 로컬(내 컴퓨터)에서 버전 관리를 수행하는 도구.</li>
+<li><strong>GitHub</strong>: Git 저장소를 온라인에서 호스팅하여 다른 사람과 공유할 수 있는 플랫폼.</li>
+</ul>
+<hr />
+<h2 id="2-git">2. Git 설치 및 환경 설정<a class="headerlink" href="#2-git" title="Permanent link">&para;</a></h2>
+<h3 id="21-git">2.1 Git 설치<a class="headerlink" href="#21-git" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Windows</strong>: <a href="https://git-scm.com/">Git 공식 웹사이트</a>에서 설치 파일 다운로드 후 설치.</li>
+<li><strong>Mac</strong>: 터미널에서 <code>brew install git</code> 명령어 실행(홈브루 필요).</li>
+<li><strong>Linux</strong>: 아래 명령어 실행:
+    <code>bash
+    sudo apt-get install git</code></li>
+</ul>
+<h3 id="22-git">2.2 Git 초기 설정<a class="headerlink" href="#22-git" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Git 사용자 이름과 이메일 설정:
+    <code>bash
+    git config --global user.name "Your Name"
+    git config --global user.email "youremail@example.com"</code></li>
+<li>설정 확인:
+    <code>bash
+    git config --list</code></li>
+</ol>
+<hr />
+<h2 id="3-git">3. Git의 기본 작업 흐름 이해하기<a class="headerlink" href="#3-git" title="Permanent link">&para;</a></h2>
+<p>Git의 기본 작업 단계는 다음과 같습니다:
+1. <strong>Working Directory(작업 디렉토리)</strong>: 실제 파일을 편집하는 공간.
+2. <strong>Staging Area(스테이징 영역)</strong>: 커밋 전에 변경 사항을 준비하는 공간.
+3. <strong>Repository(저장소)</strong>: 커밋된 변경 사항이 저장되는 공간.</p>
+<hr />
+<h2 id="4-git">4. Git 명령어 배우기<a class="headerlink" href="#4-git" title="Permanent link">&para;</a></h2>
+<h3 id="41-git">4.1 새로운 Git 저장소 생성<a class="headerlink" href="#41-git" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>기존 디렉토리를 Git으로 초기화</strong>:
+    <code>bash
+    git init</code></li>
+<li><strong>원격 저장소 연결</strong>:
+    <code>bash
+    git remote add origin https://github.com/yourusername/repository.git</code></li>
+</ol>
+<h3 id="42">4.2 파일 상태 확인<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ul>
+<li>변경 사항 확인:
+    <code>bash
+    git status</code></li>
+</ul>
+<h3 id="43">4.3 파일 추적 및 스테이징<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<ol>
+<li>특정 파일을 스테이징:
+    <code>bash
+    git add 파일명</code></li>
+<li>모든 파일을 스테이징:
+    <code>bash
+    git add .</code></li>
+</ol>
+<h3 id="44">4.4 변경 사항 저장(커밋)<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<ul>
+<li>메시지를 포함하여 변경 사항 저장:
+    <code>bash
+    git commit -m "커밋 메시지"</code></li>
+</ul>
+<h3 id="45">4.5 변경 사항 푸시(업로드)<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<ul>
+<li>원격 저장소에 푸시:
+    <code>bash
+    git push origin main</code></li>
+</ul>
+<hr />
+<h2 id="5">5. 실수 복구하기<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 마지막 커밋 수정<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<ul>
+<li>최근 커밋 메시지를 변경:
+    <code>bash
+    git commit --amend -m "수정된 메시지"</code></li>
+</ul>
+<h3 id="52">5.2 스테이징 취소<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<ul>
+<li>특정 파일 스테이징 취소:
+    <code>bash
+    git reset 파일명</code></li>
+</ul>
+<h3 id="53">5.3 변경 사항 되돌리기<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<ul>
+<li>특정 파일을 마지막 커밋 상태로 복구:
+    <code>bash
+    git checkout -- 파일명</code></li>
+</ul>
+<hr />
+<h2 id="6">6. 협업하기<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 원격 저장소 복제<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<ul>
+<li>GitHub에서 저장소를 복제:
+    <code>bash
+    git clone https://github.com/yourusername/repository.git</code></li>
+</ul>
+<h3 id="62">6.2 브랜치 사용하기<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>새 브랜치 생성 및 이동</strong>:
+    <code>bash
+    git checkout -b 브랜치명</code></li>
+<li><strong>브랜치 병합</strong>:<ul>
+<li>메인 브랜치로 이동 후 병합:
+    <code>bash
+    git checkout main
+    git merge 브랜치명</code></li>
+</ul>
+</li>
+<li><strong>브랜치 삭제</strong>:
+    <code>bash
+    git branch -d 브랜치명</code></li>
+</ol>
+<hr />
+<h2 id="7-github">7. GitHub와 연동하기<a class="headerlink" href="#7-github" title="Permanent link">&para;</a></h2>
+<h3 id="71-github">7.1 GitHub에 저장소 생성<a class="headerlink" href="#71-github" title="Permanent link">&para;</a></h3>
+<ol>
+<li>GitHub에 로그인 후 "New Repository" 클릭.</li>
+<li>저장소 이름 입력 후 "Create Repository" 클릭.</li>
+</ol>
+<h3 id="72-github">7.2 GitHub에 코드 푸시<a class="headerlink" href="#72-github" title="Permanent link">&para;</a></h3>
+<ol>
+<li>GitHub에서 제공하는 URL 복사.</li>
+<li>터미널에서 원격 저장소 설정:
+    <code>bash
+    git remote add origin URL</code></li>
+<li>코드 푸시:
+    <code>bash
+    git push -u origin main</code></li>
+</ol>
+<hr />
+<h2 id="8-git">8. 기본 Git 워크플로 연습하기<a class="headerlink" href="#8-git" title="Permanent link">&para;</a></h2>
+<h3 id="1">연습 1: 파일 추가 후 커밋<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>새 파일 생성:
+    <code>bash
+    echo "Hello, Git!" &gt; hello.txt</code></li>
+<li>파일 상태 확인:
+    <code>bash
+    git status</code></li>
+<li>파일 스테이징 및 커밋:
+    <code>bash
+    git add hello.txt
+    git commit -m "Add hello.txt"</code></li>
+</ol>
+<h3 id="2">연습 2: 원격 저장소와 연동<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>GitHub에 저장소 생성.</li>
+<li>로컬 저장소에 연결:
+    <code>bash
+    git remote add origin URL</code></li>
+<li>파일 푸시:
+    <code>bash
+    git push origin main</code></li>
+</ol>
+<hr />
+<h2 id="9">9. 추가 학습 리소스<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Git 공식 문서</strong>: <a href="https://git-scm.com/doc">https://git-scm.com/doc</a></li>
+<li><strong>GitHub 가이드</strong>: <a href="https://guides.github.com/">https://guides.github.com</a></li>
+<li><strong>연습 플랫폼</strong>: <a href="https://learngitbranching.js.org/">https://learngitbranching.js.org</a></li>
+</ol>
+<hr />
+<p>Git은 초보자가 처음 접했을 때 복잡해 보일 수 있지만, 위 단계를 차근차근 따라하면 금방 익숙해질 수 있습니다. 꾸준히 연습하며 자신만의 워크플로를 만들어 보세요! 😊  </p>
+<h1 id="git_1">Git #버전관리 #초보자 #협업<a class="headerlink" href="#git_1" title="Permanent link">&para;</a></h1>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5090c770.min.js"></script>
+      
+    
+  </body>
+</html>
