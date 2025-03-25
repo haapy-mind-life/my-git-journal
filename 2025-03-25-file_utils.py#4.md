@@ -1,10 +1,18 @@
 ---
 created: 2025-03-25T11:05:24+09:00
-modified: 2025-03-25T11:05:43+09:00
+modified: 2025-03-25T11:06:15+09:00
 ---
 
 # 2025-03-25-file_utils.py#4
 
+아래 예시는 **A/B 블록**의 내용을 표시할 때, **해당 블록에 속하는 `#if`, `#else`, `#endif` 줄**도 함께 포함해서 출력하도록 수정한 코드 예시입니다.  
+즉, 사용자가 **조건 지시문**까지 모두 확인한 뒤 A/B 결정이 가능하도록 했습니다.
+
+---
+
+## 1) 통합 함수 예시 (수정)
+
+```python
 import streamlit as st
 import pandas as pd
 
@@ -171,3 +179,59 @@ def parse_h_with_markers_and_conditions(uploaded_file, start_marker, end_marker)
         df = pd.DataFrame(final_lines, columns=["content"])
         st.success("최종 전처리 결과:")
         st.dataframe(df)
+```
+
+---
+
+### 2) 주요 변경점
+
+1. **#if / #else / #endif 라인도 A/B 블록에 포함**  
+   - `#if` 줄은 A 블록에 자동 포함,  
+   - `#else` 줄도 A 블록 끝에 포함 후 B 블록 시작,  
+   - `#endif` 줄은 A/B 블록 중 현재 읽고 있는 블록에 포함.
+
+2. **사용자에게 표시**  
+   - `st.expander("A 블록 보기...")`와 `st.expander("B 블록 보기...")` 안에서 각 블록 전체 코드를 **`st.code(..., language=\"c\")`**로 표시.  
+   - 사용자는 실제 지시문(`#if`, `#else`, `#endif`) 포함된 전체 라인을 보고 선택할 수 있음.
+
+3. **최종 라인 구성**  
+   - 사용자 결정값이 `"A"`, `"B"`, `"Skip"`에 따라 최종 라인을 합쳐 DataFrame 생성.  
+   - **주의**: 파일 내 정확한 순서(블록 전/후 normal 라인) 복원을 위해서는 더 세밀한 로직이 필요.  
+     여기서는 간단히 `normal_captured` → block loop 순서로 붙여서 예시를 보여줌.
+
+---
+
+### 3) 사용 예시
+
+```python
+# carrier_feature_generator.py (일부)
+def run(is_admin=False):
+    import streamlit as st
+    from modules.file_utils import parse_h_with_markers_and_conditions
+
+    # 사용자 입력
+    start_marker = st.text_input("Start Marker", "BEGIN_FEATURE")
+    end_marker = st.text_input("End Marker", "END_FEATURE")
+
+    uploaded_file = st.file_uploader("지원 형식: .h", type=["h"])
+    if uploaded_file:
+        parse_h_with_markers_and_conditions(uploaded_file, start_marker, end_marker)
+    else:
+        st.info("파일 업로드 후 진행하세요.")
+```
+
+업로드된 `.h` 파일 중 `BEGIN_FEATURE` ~ `END_FEATURE` 구간을 추출,  
+그 안에서 최대 10개의 `#if~#else~#endif` 블록을 찾아 사용자에게 A/B 블록을 **전체 라인**(지시문 포함)으로 보여줍니다.  
+결정 후 **최종 라인**을 DataFrame으로 확인.
+
+---
+
+### 4) 주의 / 확장
+
+- **중첩 #if** 구조, **#elif** 등은 고려 대상 아님(추가 구현 필요).  
+- **파일 전체 라인 순서**를 100% 복원하려면, normal_captured 라인을 **블록 사이**에 삽입해야 합니다. (간단 예시에서는 한꺼번에 붙임.)  
+- 여러 Start/End Marker가 있을 경우 → 반복해서 parse → 합치는 로직 필요.
+
+이렇게 지시문까지 포함하여 **A/B 블록**을 **expander** 내에서 보여주면,  
+사용자가 더 쉽게 **#if / #else / #endif** 구문과 그 내부 코드를 파악한 뒤 결정할 수 있습니다.  
+프로젝트 요구에 맞춰 UI/로직을 세밀하게 조정해 보세요!
